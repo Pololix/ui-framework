@@ -1,0 +1,26 @@
+[workspace]
+resolver = "3"
+
+members = ["core", "renderer"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+
+[workspace.dependencies]
+# member deps
+ntk-common.path = "ntk-common"
+ntk-core.path = "ntk-core"
+ntk-renderer.path = "ntk-renderer"
+ntk-ui.path = "ntk-ui"
+
+# deps
+wgpu = "30.0.1"
+winit = "0.30.11"
+ropey = "1.6.1"
+cosmic-text = "0.19.0"
+
+# helper deps
+thiserror = "2.0.20"
+bytemuck = "1.25.2"
+pollster = "1.0.1"

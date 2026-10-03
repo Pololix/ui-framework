@@ -1,5 +1,6 @@
 use crate::{
-    frame::{frame_invalidation::FrameInvalidation, render_id::RenderId},
+    RenderId,
+    frame::frame_invalidation::FrameInvalidation,
     quad::Quad,
     types::{Rect, Viewport},
 };

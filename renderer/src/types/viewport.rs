@@ -1,3 +1,5 @@
+use crate::types::Rect;
+
 #[derive(Debug, Clone, Copy)]
 pub struct Viewport {
     pub width: u32,

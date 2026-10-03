@@ -58,7 +58,7 @@ impl GpuState {
             height: viewport.height,
             present_mode: wgpu::PresentMode::Fifo,
             alpha_mode: capabilities.alpha_modes[0],
-            view_formats: vec![],
+            view_formats: Vec::new(),
             desired_maximum_frame_latency: 2,
         };
 
@@ -76,6 +76,10 @@ impl GpuState {
         })
     }
 
+    pub fn reconfigure(&self) {
+        self.surface.configure(&self.device, &self.config);
+    }
+
     pub fn set_viewport(&mut self, viewport: Viewport) {
         if viewport.width == 0 || viewport.height == 0 {
             return;
@@ -83,7 +87,8 @@ impl GpuState {
 
         self.config.width = viewport.width;
         self.config.height = viewport.height;
-        self.surface.configure(&self.device, &self.config);
+
+        self.reconfigure();
     }
 
     pub fn get_viewport(&mut self) -> Viewport {

@@ -10,5 +10,5 @@ cosmic-text.workspace = true
 
 # helper deps
 thiserror.workspace = true
-bytemuck.worksapce = true
+bytemuck.workspace = true
 pollster.workspace = true

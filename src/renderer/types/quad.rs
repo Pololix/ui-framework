@@ -22,6 +22,7 @@ impl Quad {
             attributes: &Self::ATTRIBUTES,
         }
     }
+
     pub fn instance_buffer(device: &wgpu::Device, capacity: usize) -> wgpu::Buffer {
         let size = capacity * std::mem::size_of::<Self>();
 

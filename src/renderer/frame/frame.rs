@@ -1,10 +1,10 @@
 use crate::{
-    RenderId,
-    frame::frame_invalidation::FrameInvalidation,
-    quad::Quad,
-    types::{Rect, Viewport},
+    renderer::frame::frame_invalidation::FrameInvalidation,
+    types::{Quad, Rect, Viewport},
 };
 use std::collections::HashMap;
+
+pub type RenderId = u32;
 
 #[derive(Debug, Default)]
 pub struct Frame {

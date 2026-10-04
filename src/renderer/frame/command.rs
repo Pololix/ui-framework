@@ -1,10 +1,10 @@
 use crate::{
-    RenderId,
+    renderer::frame::RenderId,
     types::{Color, Rect, Viewport},
 };
 
 #[derive(Debug, Clone)]
-pub enum RenderCommand {
+pub(crate) enum RenderCommand {
     Resize(Viewport),
     ChangeScaleFactor(f32),
     RedrawFrame,

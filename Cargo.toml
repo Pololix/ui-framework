@@ -1,21 +1,12 @@
-[workspace]
-resolver = "3"
-
-members = ["core", "renderer"]
-
-[workspace.package]
+[package]
+name = "ui-framework"
 version = "0.1.0"
 edition = "2024"
 
-[workspace.dependencies]
-# member deps
-renderer.path = "renderer"
-
+[dependencies]
 # deps
 wgpu = "30.0.1"
 cosmic-text = "0.19.0"
-
-# helper deps
 thiserror = "2.0.20"
 bytemuck = "1.25.2"
 pollster = "1.0.1"

@@ -1,9 +1,9 @@
 use crate::{
-    RenderCommand, RenderId,
-    frame::Frame,
-    gpu::{GpuState, GpuStateError},
-    quad::Quad,
-    types::{Color, Viewport},
+    renderer::{
+        frame::{Frame, RenderCommand, RenderId},
+        gpu::{GpuState, GpuStateError},
+    },
+    types::{Color, Quad, Viewport},
 };
 use std::{collections::HashMap, sync::Arc};
 
@@ -98,7 +98,7 @@ impl Renderer {
             .device
             .create_shader_module(wgpu::ShaderModuleDescriptor {
                 label: Some("Main shader"),
-                source: wgpu::ShaderSource::Wgsl(include_str!("shader.wgsl").into()),
+                source: wgpu::ShaderSource::Wgsl(include_str!("./gpu/shader.wgsl").into()),
             });
 
         let pipeline_layout = gpu
@@ -169,8 +169,8 @@ impl Renderer {
             return;
         }
 
-        let mut quads_by_id: HashMap<RenderId, Vec<Quad>> = HashMap::new();
         let cmds: Vec<_> = self.cmd_queue.drain(..).collect();
+        let mut quads: HashMap<RenderId, Vec<Quad>> = HashMap::new();
 
         // everything converges into quads for simple instanced rendering
         for cmd in cmds {
@@ -194,7 +194,10 @@ impl Renderer {
                 }
 
                 // semantic elements
-                RenderCommand::Quad { .. } => {}
+                RenderCommand::Quad { id, rect, color } => {
+                    let quad = Quad::from_rect(rect, color);
+                    quads.entry(id).or_default().push(quad);
+                }
 
                 // removal
                 RenderCommand::Remove(id) => self.frame.remove(id),
@@ -202,7 +205,7 @@ impl Renderer {
         }
 
         // upload quads to the frame
-        quads_by_id.iter().for_each(|(id, quads)| {
+        quads.iter().for_each(|(id, quads)| {
             self.frame.upload(*id, quads);
         });
 
